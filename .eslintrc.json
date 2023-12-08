@@ -1,0 +1,29 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true
+    },
+    // 继承其他eslint的配置
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "prettier",
+        "plugin:prettier/recommended"
+    ],
+    // 用什么解析器来把代码解析成ast
+    "parser": "@typescript-eslint/parser",
+    // 该解析器的具体配置
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    // 规则的合集
+    "plugins": ["@typescript-eslint", "prettier"],
+    // 具体的lint的规则
+    "rules": {
+        "prettier/prettier": "error",
+        "no-case-declarations": "off",
+        "no-constant-condition": "off"
+    }
+}
