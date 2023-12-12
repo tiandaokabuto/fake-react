@@ -29,6 +29,7 @@ export const jsx = (
     config: any,
     ...maybeChildren: any
 ): ReactElementType => {
+    console.log('jsx', type, config, maybeChildren);
     const props: Props = {};
 
     let key: Key = null;
@@ -63,4 +64,33 @@ export const jsx = (
     return ReactElement(type, key, ref, props);
 };
 
-export const jsxDEV = jsx;
+// export const jsxDEV = jsx;
+
+// 与jsx的区别在于，不需要对后面的maybeChildren进行处理
+export const jsxDEV = (type: ElementType, config: any): ReactElementType => {
+    console.log('jsx-dev', type, config);
+    const props: Props = {};
+
+    let key: Key = null;
+    let ref: Ref = null;
+
+    // 对config进行处理
+    for (const name in config) {
+        const val = config[name];
+        // 筛选出key和ref属性
+        if (name === 'key') {
+            if (val !== undefined) {
+                key = val + '';
+            }
+        } else if (name === 'ref') {
+            if (val !== undefined) {
+                ref = val + '';
+            }
+        } else if ({}.hasOwnProperty.call(config, name)) {
+            // 排除掉原型链上的属性
+            props[name] = val;
+        }
+    }
+
+    return ReactElement(type, key, ref, props);
+};
